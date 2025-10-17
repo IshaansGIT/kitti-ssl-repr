@@ -23,7 +23,7 @@ In this assignment, you’ll explore **unsupervised (and self-supervised) learni
   - OR **k-means** on embeddings  
 
 ### 2. Small-Data Testing  
-- Take ≤20 **labeled samples**.  
+- Take ≤500 **labeled samples**.  
 - Fine-tune your pretrained representations.  
 - Compare with a model trained **from scratch**.  
 
@@ -39,8 +39,7 @@ If you want to go further:
 - Compare **classical feature descriptors** (SIFT, ORB) vs CNN embeddings.  
 - Show both **t-SNE vs PCA** and explain intuitively.  
 - Compute clustering metrics (silhouette score, Davies–Bouldin index).  
-- Run a **data augmentation study** in contrastive learning.  
-- Implement **Bag of Visual Words (BoVW)** with SIFT + k-means.  
+- Run a **data augmentation study** in contrastive learning. 
 
 ---
 
@@ -51,7 +50,7 @@ If you want to go further:
 
 ## 💡 Notes  
 
-- Keep labeled data usage small (≤20 samples).  
+- Keep labeled data usage small (≤500 samples).  
 - Visualization is as important as raw accuracy here.  
 - If you’re short on compute, reduce dataset size and epochs — clarity matters more than scale.  
 
