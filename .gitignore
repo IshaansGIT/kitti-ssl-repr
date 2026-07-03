@@ -1,0 +1,16 @@
+# data
+data/raw/
+data/manifests/*.csv
+
+# outputs
+outputs/checkpoints/*.pt
+outputs/figures/*.png
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# os
+.DS_Store

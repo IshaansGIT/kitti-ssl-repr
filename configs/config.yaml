@@ -1,0 +1,81 @@
+seed: 42
+
+paths:
+  raw_root: data/raw                       # where extracted KITTI date/drive folders live
+  unlabeled_manifest: data/manifests/unlabeled.csv
+  labeled_manifest: data/manifests/labeled.csv
+  checkpoint_dir: outputs/checkpoints
+  figure_dir: outputs/figures
+
+# Every drive sequence you downloaded, and which KITTI category TAB you got it
+# from (this is the only reliable source of the label - fill this in yourself
+# based on which of City/Residential/Road/Campus you clicked download under).
+# camera_dir is almost always 'image_02' (left color, rectified+synced).
+sequences:
+  - date: "2011_09_26"
+    drive: "2011_09_26_drive_0001_sync"
+    category: "City"
+    camera_dir: "image_02"
+  - date: "2011_09_26"
+    drive: "2011_09_26_drive_0009_sync"
+    category: "City"
+    camera_dir: "image_02"
+  - date: "2011_09_26"
+    drive: "2011_09_26_drive_0019_sync"
+    category: "Residential"
+    camera_dir: "image_02"
+  - date: "2011_09_26"
+    drive: "2011_09_26_drive_0020_sync"
+    category: "Residential"
+    camera_dir: "image_02"
+  - date: "2011_09_26"
+    drive: "2011_09_26_drive_0015_sync"
+    category: "Road"
+    camera_dir: "image_02"
+  # add / remove / correct entries to match whatever you actually downloaded
+
+data_budget:
+  max_unlabeled_frames: 500    # assignment cap
+  max_labeled_frames: 500      # assignment cap
+  labeled_frames_per_category: 100   # roughly balanced sampling; capped by availability
+  frame_stride: 2               # take every Nth frame from a sequence (drives are ~10Hz,
+                                 # consecutive frames are near-duplicates -> stride to diversify)
+  val_fraction: 0.2             # of the labeled set, for fine-tune/scratch comparison
+  random_seed: 42
+
+image:
+  size: 224          # resize shorter side / center crop target for ResNet
+
+simclr:
+  backbone: "resnet18"
+  pretrained_imagenet: true      # start from ImageNet weights (justified in README: 500
+                                  # images is too few to learn anything from random init)
+  projection_dim: 128
+  hidden_dim: 512
+  temperature: 0.5
+  batch_size: 64                 # keep modest; effective negatives ~ (2*batch_size - 2)
+  epochs: 100
+  lr: 0.0003
+  weight_decay: 0.0001
+  num_workers: 2
+
+finetune:
+  freeze_backbone: false   # false = full fine-tune; set true to do linear probe instead
+  epochs: 30
+  lr: 0.0001
+  weight_decay: 0.0001
+  batch_size: 32
+  num_workers: 2
+
+scratch:
+  epochs: 30
+  lr: 0.001
+  weight_decay: 0.0001
+  batch_size: 32
+  num_workers: 2
+
+debug:
+  enabled: false     # when true, all stages truncate to a handful of samples/epochs
+                      # for a fast CPU smoke test before running for real on Colab
+  max_samples: 32
+  epochs: 2
