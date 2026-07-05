@@ -44,7 +44,7 @@ data_budget:
   random_seed: 42
 
 image:
-  size: 224          # resize shorter side / center crop target for ResNet
+  size: 128          # resize shorter side / center crop target for ResNet
 
 simclr:
   backbone: "resnet18"
@@ -53,26 +53,26 @@ simclr:
   projection_dim: 128
   hidden_dim: 512
   temperature: 0.5
-  batch_size: 64                 # keep modest; effective negatives ~ (2*batch_size - 2)
-  epochs: 100
+  batch_size: 16                 # keep modest; effective negatives ~ (2*batch_size - 2)
+  epochs: 20
   lr: 0.0003
   weight_decay: 0.0001
-  num_workers: 2
+  num_workers: 0
 
 finetune:
   freeze_backbone: false   # false = full fine-tune; set true to do linear probe instead
   epochs: 30
   lr: 0.0001
   weight_decay: 0.0001
-  batch_size: 32
-  num_workers: 2
+  batch_size: 16
+  num_workers: 0
 
 scratch:
   epochs: 30
   lr: 0.001
   weight_decay: 0.0001
-  batch_size: 32
-  num_workers: 2
+  batch_size: 16
+  num_workers: 0
 
 debug:
   enabled: false     # when true, all stages truncate to a handful of samples/epochs

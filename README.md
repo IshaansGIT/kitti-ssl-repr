@@ -51,8 +51,8 @@ for real runs).
 ## Setup
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate       # or .venv\Scripts\activate on Windows
+python -m venv .venv            # or kitenv in my case
+.venv\Scripts\activate       # or source .venv/bin/activate on Linux/Mac
 pip install -r requirements.txt
 ```
 
@@ -96,5 +96,12 @@ python -m src.eval.visualize_embeddings --config configs/config.yaml
 python -m src.eval.clustering_metrics --config configs/config.yaml
 ```
 
-On CPU, run everything with a tiny `debug: true` subset (see config) just to
+On CPU, run everything with a tiny `debug: true` subset (see config) just to 
 verify the pipeline executes end-to-end before moving to Colab for full runs.
+
+
+## Contact Information
+
+- **Name:** Ishaan Sanjay Sawant
+- **Contact number:** 9112233012
+- **Email:** ishaansanjaysawant07@gmail.com

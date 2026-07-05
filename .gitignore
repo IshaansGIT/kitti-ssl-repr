@@ -9,7 +9,8 @@ outputs/figures/*.png
 # python
 __pycache__/
 *.pyc
-.venv/
+kitvenv/
+data.zip
 .ipynb_checkpoints/
 
 # os

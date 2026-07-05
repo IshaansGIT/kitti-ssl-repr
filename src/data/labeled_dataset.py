@@ -40,14 +40,23 @@ def eval_transform(image_size: int) -> transforms.Compose:
 
 
 class KittiLabeledDataset(Dataset):
+
     def __init__(
         self,
-        manifest_csv: str,
+        manifest_csv_or_df,
         image_size: int = 224,
         train: bool = True,
         debug_max_samples: int | None = None,
     ):
-        self.df = pd.read_csv(manifest_csv)
+        """
+        manifest_csv_or_df: either a path to a manifest CSV, or an already-
+        loaded DataFrame (e.g. one half of a train/val split from
+        split_utils.get_train_val_split).
+        """
+        if isinstance(manifest_csv_or_df, pd.DataFrame):
+            self.df = manifest_csv_or_df.reset_index(drop=True)
+        else:
+            self.df = pd.read_csv(manifest_csv_or_df)
         if debug_max_samples is not None:
             self.df = self.df.iloc[:debug_max_samples].reset_index(drop=True)
         self.transform = train_transform(image_size) if train else eval_transform(image_size)
