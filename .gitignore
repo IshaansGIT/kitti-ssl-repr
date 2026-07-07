@@ -4,7 +4,7 @@ data/manifests/*.csv
 
 # outputs
 outputs/checkpoints/*.pt
-outputs/figures/*.png
+
 
 # python
 __pycache__/
